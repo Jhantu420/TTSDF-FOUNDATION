@@ -75,13 +75,31 @@ export const AppContextProvider = ({ children }) => {
   const applyData = useCallback(async () => {
     try {
       const res = await axios.get(`${url}/api/v1/get-notification`);
-      setData(res.data.data);
-      setNotificationCount(res.data.data.totalCount); // Update notification count
-      setbranchCourseCount(res.data.data.branchCourseCount); // Update notification count
+      const allData = res.data.data.applyData || [];
+
+      setNotificationCount(res.data.data.totalCount);
+
+      if (user?.role === "branchAdmin") {
+        const branchName = user.branchName;
+        const filteredApplyData = allData.filter(
+          (item) => item.center === branchName
+        );
+
+        setbranchCourseCount(filteredApplyData.length);
+
+        setData({
+          applyData: filteredApplyData,
+          applyCourse: res.data.data.applyCourse || [],
+          sendMsg: res.data.data.sendMsg || [],
+        });
+      } else {
+        setbranchCourseCount(res.data.data.branchCourseCount);
+        setData(res.data.data); // all 3: applyData, applyCourse, sendMsg
+      }
     } catch (error) {
       console.log("Error fetching apply data", error);
     }
-  }, [url]);
+  }, [url, user]);
 
   useEffect(() => {
     getBranches();
@@ -113,7 +131,7 @@ export const AppContextProvider = ({ children }) => {
         branchCourseCount,
         updateNotificationCount, // Provide function to update notification count
         updateBranchNotificationCount,
-        applyData
+        applyData,
       }}
     >
       {children}

@@ -56,7 +56,7 @@ const UserMsg = () => {
       {user?.role === "branchAdmin" ? (
         <div className="overflow-x-auto bg-gray-100 p-4 rounded-lg shadow">
           <h3 className="text-lg font-semibold mb-3 text-center">Applied for a Course</h3>
-          {applyData.length > 0 ? (
+          {applyData.filter((item) => item.center === user?.branchName).length > 0 ? (
             <table className="w-full border-collapse border border-gray-300">
               <thead>
                 <tr className="bg-gray-200">
