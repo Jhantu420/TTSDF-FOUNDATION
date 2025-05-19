@@ -47,7 +47,7 @@ const Footer = () => {
           <form onSubmit={handleVerify} className="mt-4">
             <input
               type="text"
-              placeholder="Enter User ID"
+              placeholder="Enter Registration NO"
               value={userId}
               onChange={(e) => setUserId(e.target.value)}
               className="w-full px-2 py-1 rounded-md text-black"
