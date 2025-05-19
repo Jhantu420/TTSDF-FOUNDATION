@@ -196,7 +196,6 @@ const createUser = async (req, res) => {
   }
 };
 
-
 const calculateGrade = (marks) => {
   if (marks >= 90) return "A+";
   if (marks >= 80) return "A";
@@ -369,6 +368,38 @@ const updateUser = async (req, res) => {
   } catch (error) {
     console.error("Update Error:", error);
     res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+const updateCertificateDawnloadStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // 🧠 Update certificateDownloaded to true
+    const updatedUser = await userModel.findByIdAndUpdate(
+      id,
+      { certificateDownloaded: true },
+      { new: true }
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Certificate download status updated",
+      data: updatedUser,
+    });
+  } catch (error) {
+    console.error("Update error:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Server error updating certificate download status",
+    });
   }
 };
 
@@ -635,4 +666,5 @@ export {
   deleteNotification,
   getUserById,
   getUserDetailsByIdPublic,
+  updateCertificateDawnloadStatus,
 };

@@ -13,6 +13,17 @@ const StudentList = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [registeredEmail, setRegisteredEmail] = useState("");
   const { url } = useAuth();
+  const [copiedId, setCopiedId] = useState(null);
+
+  const handleCopy = async (text) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopiedId(text);
+      setTimeout(() => setCopiedId(null), 1500); // Hide after 1.5 sec
+    } catch (error) {
+      console.error("Failed to copy:", error);
+    }
+  };
 
   useEffect(() => {
     const fetchStudents = async () => {
@@ -38,8 +49,8 @@ const StudentList = () => {
     setSearchQuery(query);
     setFilteredStudents(
       students.filter((student) =>
-        [student.name, student.userId, student.mobile].some((field) =>
-          field.toLowerCase().includes(query)
+        [student.name, student.userId, student.mobile, student.branchName].some(
+          (field) => field.toLowerCase().includes(query)
         )
       )
     );
@@ -178,7 +189,7 @@ const StudentList = () => {
 
       <input
         type="text"
-        placeholder="Search by name, Registration no , or mobile"
+        placeholder="Search by name, Registration no , mobile or Branch"
         value={searchQuery}
         onChange={handleSearch}
         className="w-full max-w-lg p-2 mb-4 border border-gray-900 rounded-md bg-gray-200"
@@ -301,6 +312,9 @@ const StudentList = () => {
                       <th className="border border-gray-300 p-2">Branch</th>
                       <th className="border border-gray-300 p-2">Course</th>
                       <th className="border border-gray-300 p-2">Status</th>
+                      <th className="border border-gray-300 p-2">
+                        Certificate Download
+                      </th>
                       <th className="border border-gray-300 p-2">Actions</th>
                     </tr>
                   </thead>
@@ -320,9 +334,20 @@ const StudentList = () => {
                           {student.name}
                         </td>
 
-                        <td className="border border-gray-300 p-2 text-[13px] whitespace-nowrap font-bold">
+                        <td
+                          className="relative border border-gray-300 p-2 text-[13px] whitespace-nowrap font-bold cursor-pointer"
+                          onClick={() => handleCopy(student.userId)}
+                          title="Click to copy"
+                        >
                           {student.userId}
+
+                          {copiedId === student.userId && (
+                            <span className="absolute -top-6 left-1/2 -translate-x-1/2 bg-green-100 text-green-700 text-xs px-2 py-1 rounded shadow z-10 transition-opacity duration-300">
+                              Copied!
+                            </span>
+                          )}
                         </td>
+
                         <td className="border border-gray-300 p-2 text-sm font-bold">
                           {student.mobile}
                         </td>
@@ -352,6 +377,20 @@ const StudentList = () => {
                             {student.activeStatus ? "Active" : "Inactive"}
                           </span>
                         </td>
+                        <td className="border border-gray-300 p-2 text-center font-bold">
+                          <span
+                            className={`px-2 py-1 rounded-full text-xs font-bold ${
+                              student.certificateDownloaded
+                                ? "bg-green-200 text-green-800"
+                                : "bg-red-200 text-red-800"
+                            }`}
+                          >
+                            {student.certificateDownloaded
+                              ? "Yes"
+                              : "No"}
+                          </span>
+                        </td>
+
                         <td className="border border-gray-300 p-2">
                           <div className="flex gap-2 justify-center">
                             <button

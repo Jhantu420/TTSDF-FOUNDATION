@@ -23,6 +23,7 @@ import {
   getUserById,
   getUserDetailsByIdPublic,
   sendMsg,
+  updateCertificateDawnloadStatus,
   updateUser,
 } from "../controllers/userController.js";
 import upload from "../helper/multer.js";
@@ -82,6 +83,7 @@ router.post("/applyCourse", applyCourse);
 router.get("/get-all-users", adminAuth, getAllUsers);
 router.post("/get-user-by-id", adminAuth, getUserById);
 router.put("/update-user/:id", adminAuth, upload.any(), updateUser);
+router.put("/update-certificate-status/:id", updateCertificateDawnloadStatus);
 router.delete("/delete-user/:id", adminAuth, deleteUser);
 router.post("/apply-in-a-course", applyInACourse);
 router.get("/get-team-member", getTeam);
@@ -96,7 +98,5 @@ router.get("/getCourse", getCourses);
 //Create Branch createBranch
 router.post("/addBranch", adminAuth, upload.array("images", 10), createBranch);
 router.get("/getBranches", getBranches);
-
-
 
 export default router;

@@ -94,6 +94,18 @@ function CombinedCertificate() {
     const pdfBytes = await pdfDoc.save();
     const blob = new Blob([pdfBytes], { type: "application/pdf" });
     saveAs(blob, `${userData.userId}_All_Certificates.pdf`);
+
+    // ✅ Update user in database: certificateDownloaded = true
+    await fetch(`${url}/api/v1/update-certificate-status/${userData._id}`, {
+      method: "PUT", // or "PATCH" if partial update
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include", // 🔐 Sends cookies with request
+      body: JSON.stringify({
+        certificateDownloaded: true,
+      }),
+    });
   };
 
   return (
