@@ -20,19 +20,21 @@ export const sendOTP = async (email, otp) => {
     });
 
     const mailOptions = {
-      from: `theryit2024@gmail.com`, // or `"TTSDF (theryit2024)" <theryit2024@gmail.com>`
+      from: `"TTSDF Foundation" <theryit2024@gmail.com>`,
       to: email,
-      subject: "Your OTP from TTSDF Foundation",
-      text: `Hello, your OTP is: ${otp}. It is valid for 5 minutes.`,
+      subject: "Your TTSDF Code for Email Confirmation",
+      text: `Hi, your code is: ${otp}. It will expire in 3 minutes.`,
       html: `
-        <div style="font-family: Arial, sans-serif; font-size: 14px;">
-          <p>Hello,</p>
-          <p>Your OTP is: <b>${otp}</b></p>
-          <p>This code is valid for 5 minutes. If you didn’t request it, you can ignore this message.</p>
-          <br>
-          <p>— TTSDF Foundation</p>
-        </div>
-      `,
+    <div style="font-family: Arial, sans-serif; font-size: 14px; color: #333;">
+      <h2 style="color:#333;">Welcome to TTSDF</h2>
+      <p>Hi <b>${email}</b>,</p>
+      <p>Your code is: <b style="font-size: 18px;">${otp}</b></p>
+      <p>This code will expire in 3 minutes.</p>
+      <p>If you didn't expect this message, feel free to disregard it.</p>
+      <br>
+      <p style="font-size:12px;color:gray;">TTSDF Foundation</p>
+    </div>
+  `,
     };
 
     const info = await transporter.sendMail(mailOptions);

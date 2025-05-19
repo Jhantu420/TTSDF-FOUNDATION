@@ -77,6 +77,7 @@ export const getCourses = async (req, res) => {
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
+
 export const getBranches = async (req, res) => {
   try {
     const branches = await Branch.find();
@@ -99,6 +100,14 @@ export const createBranch = async (req, res) => {
     } = req.body;
     const files = req.files || [];
 
+    // // ✅ Debug log for image filenames
+    // if (files.length > 0) {
+    //   console.log("Uploaded files:");
+    //   files.forEach((file, index) => {
+    //     console.log(`Image ${index + 1}: ${file.originalname}`);
+    //   });
+    // }
+
     // ✅ Validate required fields
     if (
       !branchId ||
@@ -107,7 +116,7 @@ export const createBranch = async (req, res) => {
       !google_map_link ||
       !email ||
       !mobile ||
-      !branch_code||
+      !branch_code ||
       files.length === 0
     ) {
       return res.status(400).json({ message: "All fields are required." });
@@ -176,7 +185,6 @@ export const getRecentImages = async (req, res) => {
   }
 };
 
-
 export const RecentImage = async (req, res) => {
   try {
     const files = req.files;
@@ -189,7 +197,11 @@ export const RecentImage = async (req, res) => {
     // ✅ Upload images to Cloudinary and get URLs
     const cloudinaryImages = await Promise.all(
       files.map(async (file) => {
-        return await uploadToCloudinary(file.buffer, crypto.randomUUID(), "Recent Images");
+        return await uploadToCloudinary(
+          file.buffer,
+          crypto.randomUUID(),
+          "Recent Images"
+        );
       })
     );
 

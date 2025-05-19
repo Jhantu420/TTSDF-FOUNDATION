@@ -40,7 +40,6 @@ import {
   unifiedlogout,
   unifiedResetPassword,
 } from "../controllers/unifiedLoginLogoutForgetResetController.js";
-import { googleLogin } from "../controllers/authController.js";
 import { userAuth } from "../middleware/userAuth.js";
 
 const router = express.Router();
@@ -98,7 +97,6 @@ router.get("/getCourse", getCourses);
 router.post("/addBranch", adminAuth, upload.array("images", 10), createBranch);
 router.get("/getBranches", getBranches);
 
-// ✅ Google Login Route
-router.post("/google-login", googleLogin);
+
 
 export default router;

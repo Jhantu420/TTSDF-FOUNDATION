@@ -264,7 +264,7 @@ const createBranchAdmin = async (req, res) => {
 
     // Generate OTP
     const otp = generateOTP();
-    const otpExpires = new Date(Date.now() + 1 + 60 * 1000);
+    const otpExpires = new Date(Date.now() + 1 + 5 * 60 * 1000); // 5 minures validaty
 
     // Hash the OTP and password
     const salt = await bcrypt.genSalt(10);

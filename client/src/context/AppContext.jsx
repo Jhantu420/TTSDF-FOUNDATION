@@ -17,7 +17,7 @@ export const AppContextProvider = ({ children }) => {
   const [data, setData] = useState([]);
   const [notificationCount, setNotificationCount] = useState(0); // New state for notification count
   const [branchCourseCount, setbranchCourseCount] = useState(0); // New state for notification count
-  const url = "http://localhost:3000";
+  const url =  "http://localhost:3000"; //"https://app.theryit.com"
   const navigate = useNavigate();
 
   const checkAuth = useCallback(async () => {
@@ -55,6 +55,7 @@ export const AppContextProvider = ({ children }) => {
   const getBranches = useCallback(async () => {
     try {
       const response = await axios.get(`${url}/api/v1/getBranches`);
+      // console.log("Branches response comming from backend",response.data.branches)
       setBranches(response.data.branches);
     } catch (error) {
       console.log("Error fetching branches", error);

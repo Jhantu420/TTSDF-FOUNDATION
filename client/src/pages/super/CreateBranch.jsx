@@ -118,6 +118,7 @@ const CreateBranch = () => {
               </label>
               <input
                 id="imageUpload"
+                name="images"
                 type="file"
                 multiple
                 onChange={handleFileChange}
