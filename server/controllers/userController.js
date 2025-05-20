@@ -654,6 +654,27 @@ const getUserDetailsByIdPublic = async (req, res) => {
   return res.status(200).json({ success: true, data: user });
 };
 
+const addCertificateDownloadFieldToAllUsers = async (req, res) => {
+  try {
+    // Update all users to set certificateDownloaded to false
+    const result = await userModel.updateMany(
+      {},
+      { $set: { certificateDownloaded: false } }
+    );
+
+    return res.status(200).json({
+      success: true,
+      message: `${result.nModified} users updated with certificateDownloaded field`,
+    });
+  } catch (error) {
+    console.error("Update error:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Server error updating users",
+    });
+  }
+};
+
 export {
   createUser,
   applyCourse,
@@ -667,4 +688,5 @@ export {
   getUserById,
   getUserDetailsByIdPublic,
   updateCertificateDawnloadStatus,
+  addCertificateDownloadFieldToAllUsers
 };

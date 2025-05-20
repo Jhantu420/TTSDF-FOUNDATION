@@ -243,3 +243,6 @@ function StudentList() {
 }
 
 export default StudentList;
+
+// Branch admin ki vabe student der number ta deckhte pacche seta dekhte hobe
+// already resgistered student der dawnload certificate field ta update korte hobe

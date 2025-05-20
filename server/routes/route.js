@@ -13,6 +13,7 @@ import {
 import adminAuth from "../middleware/adminAuth.js";
 import { resendOTP, unifiedVerifyOTPHelper } from "../helper/otpHelper.js";
 import {
+  addCertificateDownloadFieldToAllUsers,
   applyCourse,
   applyInACourse,
   createUser,
@@ -98,5 +99,8 @@ router.get("/getCourse", getCourses);
 //Create Branch createBranch
 router.post("/addBranch", adminAuth, upload.array("images", 10), createBranch);
 router.get("/getBranches", getBranches);
+
+
+router.post('/add-certificate-field',addCertificateDownloadFieldToAllUsers);
 
 export default router;
