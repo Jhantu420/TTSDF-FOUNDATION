@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FiEdit, FiTrash } from "react-icons/fi";
 
 const StudentTable = ({ students, onUpdate, onDelete }) => {
   const [copiedId, setCopiedId] = useState(null);
@@ -12,12 +13,13 @@ const StudentTable = ({ students, onUpdate, onDelete }) => {
       console.error("Failed to copy:", error);
     }
   };
+
   return (
     <div className="hidden lg:block p-4 rounded-lg shadow-md overflow-auto">
-      <div className="max-h-[900px] overflow-y-auto">
+      <div className="max-h-[700px] overflow-y-auto">
         <table className="w-full table-auto border-collapse border border-gray-300">
           <thead>
-            <tr >
+            <tr>
               {[
                 "Image",
                 "Name",
@@ -30,11 +32,11 @@ const StudentTable = ({ students, onUpdate, onDelete }) => {
                 "Course",
                 "Status",
                 "Actions",
-                "Certificate Download",
+                "C D",
               ].map((heading, index) => (
                 <th
                   key={index}
-                  className="sticky top-0 z-10 border border-gray-300 p-2 bg-gray-200 text-black "
+                  className="sticky top-0 z-10 border border-gray-300 p-2 bg-gray-200 text-black"
                 >
                   {heading}
                 </th>
@@ -53,7 +55,7 @@ const StudentTable = ({ students, onUpdate, onDelete }) => {
                     />
                   )}
                 </td>
-                <td className="border border-gray-300 p-2 text-sm font-bold">
+                <td className="border border-gray-300 p-2 text-[13px] font-bold">
                   {student.name}
                 </td>
                 <td
@@ -62,34 +64,34 @@ const StudentTable = ({ students, onUpdate, onDelete }) => {
                   title="Click to copy"
                 >
                   {student.userId}
-
                   {copiedId === student.userId && (
                     <span className="absolute -top-6 left-1/2 -translate-x-1/2 bg-green-100 text-green-700 text-xs px-2 py-1 rounded shadow z-10 transition-opacity duration-300">
                       Copied!
                     </span>
                   )}
                 </td>
-                <td className="border border-gray-300 p-2 text-sm font-bold">
+                <td className="border border-gray-300 p-2 text-[13px] font-bold">
                   {student.mobile}
                 </td>
-                <td className="border border-gray-300 p-2 text-sm font-bold">
+                <td className="border border-gray-300 p-2 text-[13px] font-bold">
                   {student.fathername}
                 </td>
-                <td className="border border-gray-300 p-2 text-sm font-bold">
+                <td className="border border-gray-300 p-2 text-[12px] font-bold max-w-[150px] overflow-hidden text-ellipsis whitespace-nowrap">
                   {student.address}
                 </td>
-                <td className="border border-gray-300 p-2 text-sm font-bold">
+                <td className="border border-gray-300 p-2 text-[13px] font-bold">
                   {student.dor}
                 </td>
-                <td className="border border-gray-300 p-2 text-sm font-bold">
+                <td className="border border-gray-300 p-2 text-[12px] font-bold max-w-[150px] overflow-hidden text-ellipsis whitespace-nowrap">
                   {student.branchName}
                 </td>
-                <td className="border border-gray-300 p-2 text-sm font-bold">
+                <td className="border border-gray-300 p-2 text-[13px] font-bold">
                   {student.courseName}
                 </td>
+
                 <td className="border border-gray-300 p-2 text-center font-bold">
                   <span
-                    className={`px-2 py-1 rounded-full text-xs font-medium ${
+                    className={`px-2 py-1 rounded-full text-[10px] font-bold ${
                       student.activeStatus
                         ? "bg-green-200 text-green-800"
                         : "bg-red-200 text-red-800"
@@ -103,20 +105,22 @@ const StudentTable = ({ students, onUpdate, onDelete }) => {
                     <button
                       onClick={() => onUpdate(student)}
                       className="p-1 bg-blue-600 text-white rounded hover:bg-blue-700 cursor-pointer"
+                      title="Edit"
                     >
-                      Edit
+                      <FiEdit size={18} />
                     </button>
                     <button
                       onClick={() => onDelete(student._id)}
                       className="p-1 bg-red-600 text-white rounded hover:bg-red-700 cursor-pointer"
+                      title="Delete"
                     >
-                      Delete
+                      <FiTrash size={18} />
                     </button>
                   </div>
                 </td>
-                <td className="border border-gray-300 p-2 text-center font-bold">
+                <td className="border border-gray-300 p-2 text-center">
                   <span
-                    className={`px-2 py-1 rounded-full text-xs font-bold ${
+                    className={`px-2 py-1 rounded-full text-[10px] ${
                       student.certificateDownloaded
                         ? "bg-green-200 text-green-800"
                         : "bg-red-200 text-red-800"

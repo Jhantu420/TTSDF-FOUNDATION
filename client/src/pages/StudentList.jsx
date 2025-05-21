@@ -146,7 +146,7 @@ function StudentList() {
           id="branch-select"
           value={selectedBranch}
           onChange={handleBranchChange}
-          className=" p-2 border border-gray-300 rounded-md bg-gray-200"
+          className="w-[200px] p-2 border border-gray-300 rounded-md bg-gray-200"
         >
           <option value="">All Branches</option>
           {branches.map((branch, index) => (
@@ -158,42 +158,40 @@ function StudentList() {
       </div>
       {students.length > 0 ? (
         <>
-          <div className="flex flex-wrap gap-4">
-            <div className="flex gap-2 bg-purple-800 text-white md:px-10 md:py-8 p-4 rounded-xl shadow-md mb-3">
-              <span className="md:text-2xl font-semibold">Total Students:</span>
-              <span className="md:text-2xl font-bold">
+          <div className="flex flex-wrap gap-2">
+            <div className="flex gap-1 bg-purple-800 text-white sm:px-4 sm:py-4 p-2 rounded-xl shadow-md mb-2">
+              <span className="sm:text-lg font-semibold">Total Students:</span>
+              <span className="sm:text-lg font-bold">
                 {totalStudentsInSelectedBranch}
               </span>
             </div>
-            <div className="flex gap-2 bg-purple-800 text-white md:px-10 md:py-8 p-4 rounded-xl shadow-md mb-3">
-              <span className="md:text-2xl font-semibold">
-                Active Students:
-              </span>
-              <span className="md:text-2xl font-bold">
+            <div className="flex gap-1 bg-purple-800 text-white sm:px-4 sm:py-4 p-2 rounded-xl shadow-md mb-2">
+              <span className="sm:text-lg font-semibold">Active Students:</span>
+              <span className="sm:text-lg font-bold">
                 {totalActiveStudents}
               </span>
             </div>
-            <div className="flex gap-2 bg-purple-800 text-white md:px-10 md:py-8 p-4 rounded-xl shadow-md mb-3">
-              <span className="md:text-2xl font-semibold">
+            <div className="flex gap-1 bg-purple-800 text-white sm:px-4 sm:py-4 p-2 rounded-xl shadow-md mb-2">
+              <span className="sm:text-lg font-semibold">
                 Inactive Students:
               </span>
-              <span className="md:text-2xl font-bold">
+              <span className="sm:text-lg font-bold">
                 {totalInactiveStudents}
               </span>
             </div>
-            <div className="flex gap-2 bg-purple-800 text-white md:px-10 md:py-8 p-4 rounded-xl shadow-md mb-3">
-              <span className="md:text-2xl font-semibold">
+            <div className="flex gap-1 bg-purple-800 text-white sm:px-4 sm:py-4 p-2 rounded-xl shadow-md mb-2">
+              <span className="sm:text-lg font-semibold">
                 Downloaded Certificates:
               </span>
-              <span className="md:text-2xl font-bold">
+              <span className="sm:text-lg font-bold">
                 {totalDownloadedCertificates}
               </span>
             </div>
-            <div className="flex gap-2 bg-purple-800 text-white md:px-10 md:py-8 p-4 rounded-xl shadow-md mb-3">
-              <span className="md:text-2xl font-semibold">
+            <div className="flex gap-1 bg-purple-800 text-white sm:px-4 sm:py-4 p-2 rounded-xl shadow-md mb-2">
+              <span className="sm:text-lg font-semibold">
                 Undownloaded Certificates:
               </span>
-              <span className="md:text-2xl font-bold">
+              <span className="sm:text-lg font-bold">
                 {totalUndownloadedCertificates}
               </span>
             </div>
@@ -208,13 +206,16 @@ function StudentList() {
         <>
           {filteredStudents.length > 0 ? (
             <>
-              <div className="max-h-250 overflow-y-auto w-full">
-                <StudentTable
-                  students={filteredStudents}
-                  onUpdate={handleUpdate}
-                  onDelete={handleDelete}
-                />
-              </div>
+              {/* Conditionally render the table header */}
+              {!isModalOpen && (
+                <div className="max-h-250 overflow-y-auto w-full">
+                  <StudentTable
+                    students={filteredStudents}
+                    onUpdate={handleUpdate}
+                    onDelete={handleDelete}
+                  />
+                </div>
+              )}
               <div className="lg:hidden grid grid-cols-1 gap-4 max-h-350 overflow-y-auto w-full">
                 {filteredStudents.map((student) => (
                   <StudentCard
@@ -243,6 +244,3 @@ function StudentList() {
 }
 
 export default StudentList;
-
-// Branch admin ki vabe student der number ta deckhte pacche seta dekhte hobe
-// already resgistered student der dawnload certificate field ta update korte hobe

@@ -38,7 +38,8 @@ const App = () => {
   if (loading) return <div>Loading...</div>; // Prevents flickering issues
 
   // ✅ List of routes where footer should be hidden
-  const hideFooterRoutes = ["/super/allcertificate"];
+  const hideFooterRoutes = ["/super/allcertificate" ,"/super"];
+
   const shouldHideFooter = hideFooterRoutes.includes(location.pathname);
 
   return (
