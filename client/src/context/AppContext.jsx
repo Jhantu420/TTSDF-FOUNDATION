@@ -17,7 +17,7 @@ export const AppContextProvider = ({ children }) => {
   const [data, setData] = useState([]);
   const [notificationCount, setNotificationCount] = useState(0); // New state for notification count
   const [branchCourseCount, setbranchCourseCount] = useState(0); // New state for notification count
-  const url = "http://localhost:3000"; // "https://app.theryit.com" ; 
+  const url = "http://localhost:3000"; //"https://app.theryit.com"; 
   const navigate = useNavigate();
 
   const checkAuth = useCallback(async () => {

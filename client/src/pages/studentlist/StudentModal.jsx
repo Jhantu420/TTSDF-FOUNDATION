@@ -1,11 +1,36 @@
 import React from "react";
+import { useAuth } from "../../context/AppContext";
 
 const StudentModal = ({ student, onSave, onClose }) => {
+  const { courses } = useAuth();
   const [formData, setFormData] = React.useState(student);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+
+    if (name === "courseName") {
+      const selectedCourse = courses.find(
+        (course) => course.course_name === value
+      );
+      if (selectedCourse) {
+        setFormData({
+          ...formData,
+          [name]: value,
+          courseDuration: selectedCourse ? selectedCourse.course_duration : "",
+          courseContent: selectedCourse ? selectedCourse.course_content : "",
+        });
+      } else {
+        // Clear course duration and content if no course is selected or found
+        setFormData({
+          ...formData,
+          [name]: value,
+          courseDuration: "",
+          courseContent: "",
+        });
+      }
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
   const handleSubmit = () => {
@@ -131,7 +156,52 @@ const StudentModal = ({ student, onSave, onClose }) => {
               <option value="Other">Other</option>
             </select>
           </div>
-
+          <div>
+            <label className="block text-md font-medium text-white">
+              Course Name
+            </label>
+            <select
+              name="courseName"
+              value={formData.courseName}
+              onChange={handleInputChange}
+              className="w-full p-2.5 border rounded-lg focus:ring focus:ring-blue-300 text-md font-bold"
+              required
+            >
+              <option value="">Select Course</option>
+              {courses.map(
+                (
+                  course // Renamed from 'courses' to 'course' for clarity
+                ) => (
+                  <option key={course._id} value={course.course_name}>
+                    {course.course_name}
+                  </option>
+                )
+              )}
+            </select>
+          </div>
+          <div>
+            <label className="block text-md font-medium text-white">
+              Course Duration
+            </label>
+            <input
+              name="courseDuration"
+              value={formData.courseDuration || ""}
+              readOnly // Make it read-only since it's auto-selected
+              className="w-full p-2.5 border rounded-lg bg-gray-200 font-bold text-md"
+            />
+          </div>
+          <div className="col-span-1 md:col-span-2">
+            <label className="block text-md font-medium text-white">
+              Course Content
+            </label>
+            <textarea
+              name="courseContent"
+              value={formData.courseContent || ""}
+              readOnly
+              rows={4}
+              className="w-full p-2.5 border rounded-lg bg-gray-200 font-bold text-md"
+            />
+          </div>
           <div>
             <label className="block text-sm font-medium text-white">
               Active Status

@@ -228,6 +228,9 @@ const updateUser = async (req, res) => {
       gender,
       mobile,
       branchName,
+      courseName,
+      courseDuration,
+      courseContent, // This is the incoming 'courseContent'
       practical,
       theory,
       typingMarks,
@@ -337,6 +340,17 @@ const updateUser = async (req, res) => {
     const WPM =
       typingWPM !== undefined ? Number(typingWPM) : user.typingWPM || 0;
 
+    // --- FIX START ---
+    let finalCourseContent = courseContent;
+    if (Array.isArray(courseContent) && courseContent.length > 0) {
+      // If it's an array with at least one element, take the first element
+      finalCourseContent = courseContent[0];
+    } else if (Array.isArray(courseContent) && courseContent.length === 0) {
+      // If it's an empty array, set it to an empty string
+      finalCourseContent = "";
+    }
+    // --- FIX END ---
+
     // Assign all updates
     Object.assign(user, {
       name: name || user.name,
@@ -347,6 +361,10 @@ const updateUser = async (req, res) => {
       dor: dor || user.dor,
       gender: gender || user.gender,
       mobile: mobile || user.mobile,
+      courseName: courseName || user.courseName,
+      courseDuration: courseDuration || user.courseDuration,
+      // Use the 'finalCourseContent' variable here
+      courseContent: finalCourseContent || user.courseContent,
       practical: practicalMarks,
       theory: theoryMarks,
       totalmarks,
@@ -688,5 +706,5 @@ export {
   getUserById,
   getUserDetailsByIdPublic,
   updateCertificateDawnloadStatus,
-  addCertificateDownloadFieldToAllUsers
+  addCertificateDownloadFieldToAllUsers,
 };
