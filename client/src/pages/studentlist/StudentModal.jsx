@@ -38,8 +38,8 @@ const StudentModal = ({ student, onSave, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-white bg-opacity-50 flex justify-center items-center">
-      <div className="bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-5/10">
+    <div className="fixed inset-0 bg-white bg-opacity-50 flex justify-center items-center z-50 p-4">
+      <div className="bg-gray-800 p-4 md:p-6 rounded-lg shadow-lg w-full max-w-4xl overflow-y-auto h-[80vh] mx-4">
         <h3 className="text-xl font-semibold mb-4 text-center text-white">
           Update Student
         </h3>

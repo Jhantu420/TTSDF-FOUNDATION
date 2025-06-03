@@ -57,7 +57,14 @@ router.post("/branchadmin", adminAuth, createBranchAdmin);
 router.get("/get-all-branch-admins", adminAuth, getAllBranchAdmins);
 router.put("/update-branch-admin/:id", adminAuth, updateBranchAdmin);
 router.delete("/delete-branch-admin/:id", adminAuth, deleteBranchAdmin);
+
+
+
+
 router.post("/upload-image", adminAuth, upload.array("images", 5), RecentImage);
+
+
+
 router.get("/recent", getRecentImages); // Fetch recent images
 router.post("/create-team", adminAuth, upload.single("image"), createTeam);
 router.post("/create-activity", adminAuth, createActivity);
