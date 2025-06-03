@@ -28,7 +28,7 @@ import UserMsg from "./pages/UserMsg";
 import Branches from "./pages/Branches";
 import StudentList from "./pages/StudentList";
 import UploadActivity from "./pages/super/UploadActivity";
-import VerifyUser from "./pages/verifyUser";
+import VerifyUser from "./pages/VerifyUser";
 import AllComponent from "./pages/pdf/AllComponent";
 
 const App = () => {
