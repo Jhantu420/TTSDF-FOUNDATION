@@ -69,8 +69,8 @@ const unifiedLogin = async (req, res) => {
     // Set the token in a cookie for 30 days
     res.cookie("authToken", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "Strict",
+      secure: true,
+      sameSite: "None",
       maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
     });
 
@@ -96,8 +96,8 @@ const unifiedlogout = async (req, res) => {
   try {
     res.clearCookie("authToken", {
       httpOnly: true, // Prevent JavaScript access (protects against XSS)
-      secure: process.env.NODE_ENV === "production", // Use HTTPS in production
-      sameSite: "Strict", // Protects against CSRF
+      secure: true, // Use HTTPS in production
+      sameSite: "None", // Protects against CSRF
     });
     return res.status(201).json({ success: true, message: "Logged Out" });
   } catch (error) {

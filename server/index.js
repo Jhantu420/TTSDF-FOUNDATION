@@ -11,7 +11,7 @@ dotenv.config();
 
 const PORT = process.env.PORT || 3000;
 const app = express();
-const allowedOrigins = ["http://localhost:5173"];
+const allowedOrigins = ["https://ttsdf-foundation-client.onrender.com"];
 
 app.use(
   cors({
